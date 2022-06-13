@@ -1,0 +1,29 @@
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: \*
+
+onlineRetailer:
+  salesTaxRate: 0.20
+  deliveryCharge:
+    normal: 2.50
+    threshold: 3000
+---
+resources:
+  db: H2
+  logs: C:\temp\logs\
+  secure: false
+spring:
+  config:
+    activate:
+      on-profile: development
+---
+resources:
+  db: Oracle
+  logs: //PROD_SERVER/logs/
+  secure: true
+spring:
+  config:
+    activate:
+      on-profile: production
