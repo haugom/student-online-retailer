@@ -3,6 +3,8 @@ package student.onlineretailer.service.impl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import student.onlineretailer.Item
+import student.onlineretailer.data.CatalogItem
+import student.onlineretailer.repo.CatalogItemRepository
 import student.onlineretailer.service.CatalogService
 import javax.annotation.PostConstruct
 
@@ -10,47 +12,58 @@ import javax.annotation.PostConstruct
 class CatalogServiceImpl: CatalogService {
 
     @Autowired
-    lateinit var originalData: Map<Int, Item>
+    lateinit var catalogItemRepository: CatalogItemRepository
 
-    var currentData: MutableMap<Int, Item> = mutableMapOf()
-    var counter = 0
+    @Autowired
+    lateinit var originalData: Map<Int, Item>
 
     @PostConstruct
     fun init() {
         originalData.forEach {
-            currentData.put(it.key, it.value)
-            counter++
+            val catalogItem = CatalogItem()
+            val originalItem = it.value
+            catalogItem.id = originalItem.id.toLong()
+            catalogItem.description = originalItem.description
+            catalogItem.price = originalItem.price
+            catalogItemRepository.save(catalogItem)
         }
-        counter++
     }
 
     override fun GetAll(): List<Item> {
         var copy: ArrayList<Item> = ArrayList()
-        currentData.forEach {
-            copy.add(it.value)
+        catalogItemRepository.findAll().forEach {
+            copy.add(Item(it.id.toInt(),it.description,it.price))
         }
         return copy
     }
 
     override fun Contains(id: Int): Boolean {
-        return currentData.containsKey(id)
+        return catalogItemRepository.existsById(id.toLong())
     }
 
     override fun Get(id: Int): Item {
-        return currentData.get(id)!!
+        val result = catalogItemRepository.findById(id.toLong())
+        val foundItem = result.get()
+        return Item(foundItem.id.toInt(), foundItem.description, foundItem.price)
     }
 
     override fun Create(item: Item): Item {
-        var newItem = Item(counter++, item.description, item.price)
-        currentData.put(newItem.id, newItem)
-        return newItem
+        var newItem = CatalogItem()
+        newItem.description = item.description
+        newItem.price = item.price
+        val savedItem = catalogItemRepository.save(newItem)
+        return Item(savedItem.id.toInt(), savedItem.description, savedItem.price)
     }
 
     override fun Update(id: Int, item: Item) {
-        currentData.put(id, item)
+        var updatedItem = CatalogItem()
+        updatedItem.id = id.toLong()
+        updatedItem.description = item.description
+        updatedItem.price = item.price
+        catalogItemRepository.save(updatedItem)
     }
 
     override fun Delete(id: Int) {
-        currentData.remove(id)
+        catalogItemRepository.deleteById(id.toLong())
     }
 }
