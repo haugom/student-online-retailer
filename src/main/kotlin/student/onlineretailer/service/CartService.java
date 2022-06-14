@@ -1,4 +1,4 @@
-package student.onlineretailer;
+package student.onlineretailer.service;
 
 import java.util.Map;
 

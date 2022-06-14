@@ -1,4 +1,4 @@
-package student.onlineretailer
+package student.onlineretailer.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import student.onlineretailer.service.CartService
+import student.onlineretailer.Item
 
 @RestController
 class CartRestController {
