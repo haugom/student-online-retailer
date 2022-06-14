@@ -1,0 +1,38 @@
+###
+POST 127.0.0.1:8080/ps
+Content-Type: application/json
+
+{
+  "description": "nytt produkt",
+  "recommendedPrice": 1.0,
+  "estimatedAnnualSales": 100
+}
+###
+POST 127.0.0.1:8080/ps
+Content-Type: application/json
+
+{
+  "description": "nytt produkt2",
+  "recommendedPrice": 2.0,
+  "estimatedAnnualSales": 50
+}
+
+###
+GET 127.0.0.1:8080/ps
+Content-Type: application/json
+
+###
+GET 127.0.0.1:8080/ps/2
+Content-Type: application/json
+
+
+###
+PUT 127.0.0.1:8080/ps/2
+Content-Type: application/json
+
+{
+  "recommendedPrice": 21.0
+}
+
+###
+DELETE 127.0.0.1:8080/ps
