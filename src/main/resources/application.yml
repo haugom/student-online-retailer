@@ -13,8 +13,10 @@ onlineRetailer:
 spring:
   cache:
     type: redis
-  redis:
-    password: TODO_HENT_DENNE
+  rabbitmq: # https://spring.io/guides/gs/messaging-rabbitmq/
+    host: localhost
+    port: 5672
+    username: user
 ---
 resources:
   db: H2
