@@ -1,19 +1,13 @@
 package student.onlineretailer.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.annotation.CachePut
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.ResponseBody
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
-import student.onlineretailer.service.CatalogService
+import org.springframework.web.bind.annotation.*
 import student.onlineretailer.Item
+import student.onlineretailer.service.CatalogService
 
 @RestController()
 class CatalogRestController {
@@ -21,17 +15,24 @@ class CatalogRestController {
     @Autowired
     lateinit var catalogService: CatalogService
 
+    @Cacheable(
+        value=["catalogs"]
+    )
     @GetMapping("/catalog")
     fun getAllItems(): List<Item> {
         return catalogService.GetAll()
     }
 
+    @CachePut(
+        cacheNames = ["catalogs"],
+        key = "#id"
+    )
     @GetMapping("/catalog/{id}")
-    fun getItem(@PathVariable("id") id: Int): ResponseEntity<Item> {
+    fun getItem(@PathVariable("id") id: Int): Item {
         if (catalogService.Contains(id) == false) {
-            return ResponseEntity.notFound().build()
+            return Item(-1, "", 0.0)
         }
-        return ResponseEntity.ok().body(catalogService.Get(id))
+        return catalogService.Get(id)
     }
 
     @PostMapping("/catalog")

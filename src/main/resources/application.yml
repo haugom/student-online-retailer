@@ -9,6 +9,12 @@ onlineRetailer:
   deliveryCharge:
     normal: 2.50
     threshold: 3000
+
+spring:
+  cache:
+    type: redis
+  redis:
+    password: TODO_HENT_DENNE
 ---
 resources:
   db: H2

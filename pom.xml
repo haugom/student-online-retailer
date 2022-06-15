@@ -75,6 +75,11 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>3.0.5</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-cache -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
 
 
         <!--        <dependency>-->

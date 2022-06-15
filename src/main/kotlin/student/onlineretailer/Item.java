@@ -1,7 +1,10 @@
 package student.onlineretailer;
 
-public class Item {
+import java.io.Serializable;
 
+public class Item implements Serializable {
+
+	static final long serialVersionUID = 42L;
 	private int id;
 	private String description;
 	private double price;
