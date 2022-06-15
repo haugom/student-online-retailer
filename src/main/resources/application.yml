@@ -27,3 +27,16 @@ spring:
   config:
     activate:
       on-profile: production
+---
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/springbootdb
+    username: root
+    password: TODO_GET_THIS_SECURELY
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  config:
+    activate:
+      on-profile: mariadb

@@ -36,3 +36,6 @@ Content-Type: application/json
 
 ###
 DELETE 127.0.0.1:8080/ps
+
+###
+GET 127.0.0.1:8080/catalog
