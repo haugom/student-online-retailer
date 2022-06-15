@@ -17,6 +17,9 @@ spring:
     host: localhost
     port: 5672
     username: user
+  kafka:
+    listener:
+      missing-topics-fatal: false
 ---
 resources:
   db: H2

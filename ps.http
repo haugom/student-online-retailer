@@ -42,3 +42,6 @@ GET 127.0.0.1:8080/catalog
 
 ###
 GET 127.0.0.1:8080/catalog/2
+
+###
+GET 127.0.0.1:8080/mykafka/publish?value=hello from intellij
