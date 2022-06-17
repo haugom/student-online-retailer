@@ -33,7 +33,7 @@ class EmployeeService(val repo: EmployeeRepository, pub: ApplicationEventPublish
             .flatMap { t -> repo.save(t).thenReturn(t) }
     }
 
-    fun delete(id: Long?): Mono<Employee?>? {
+    fun delete(id: Long?): Mono<Employee> {
         return repo.findById(id!!)
             .flatMap { e -> repo.deleteById(e.id!!).thenReturn(e) }
     }

@@ -1,0 +1,20 @@
+GET localhost:8080/employees
+
+###
+GET localhost:8080/employees/1
+
+###
+PUT localhost:8080/employees/1
+content-type: application/json
+
+{
+  "name": "john the second",
+  "salary": 101.0,
+  "region": "Stavanger"
+}
+
+###
+GET localhost:8080/employees/1
+
+###
+DELETE localhost:8080/employees/1
