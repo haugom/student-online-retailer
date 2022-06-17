@@ -43,18 +43,21 @@ class EmployeeServiceModificationsTest(
         // insert one user
         service.create("test", 1.0, "test").subscribe()
 
+        val abrahamsen = Employee(null, "abrahamsen", 2.0, "Oslo")
+
         // insert another user and delete it
-        val deletedEmployee = service.create("Abrahamsen", 2.0, "Oslo")
+        val deletedEmployee = service.create(abrahamsen.name, abrahamsen.salary, abrahamsen.region)
             .flatMap { emp ->
                 id = emp.id!!
                 service.delete(emp.id)
             }
         StepVerifier
             .create(deletedEmployee)
-            .expectNextMatches { emp -> emp!!.name == "Abrahamsen" }
+            .expectNextMatches { emp -> emp!!.name == abrahamsen.name }
             .verifyComplete()
 
         logger.info { "id was $id" }
+        abrahamsen.id = id
 
         val byId = service.getById(id)
         StepVerifier
@@ -62,11 +65,11 @@ class EmployeeServiceModificationsTest(
             .expectComplete()
 
         val liste: ArrayList<Employee> = ArrayList()
-        service.getAll().subscribe {
-            liste.add(it)
+        service.getAll().subscribe { emp ->
+            liste.add(emp)
+            logger.info { "reading $emp" }
         }
 
-        Assert.isTrue(liste.size == 1, "it should only be one employee")
-        Assert.isTrue(liste[0].name == "test", "the only users name should be test")
+        Assert.isTrue(liste.contains(abrahamsen) == false, "it should only be one employee")
     }
 }
