@@ -4,6 +4,17 @@ GET localhost:8080/employees
 GET localhost:8080/employees/1
 
 ###
+POST localhost:8080/employees
+content-type: application/json
+
+{
+  "name": "mr sparrow",
+  "salary": 101.0,
+  "region": "Stavanger"
+}
+
+
+###
 PUT localhost:8080/employees/1
 content-type: application/json
 
