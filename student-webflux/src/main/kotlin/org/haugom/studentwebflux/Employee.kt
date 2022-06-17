@@ -6,7 +6,7 @@ import org.springframework.data.relational.core.mapping.Table
 @Table("employees")
 data class Employee(
     @Id
-    val id: Long?,
+    var id: Long?,
     val name: String,
     val salary: Double,
     val region: String
