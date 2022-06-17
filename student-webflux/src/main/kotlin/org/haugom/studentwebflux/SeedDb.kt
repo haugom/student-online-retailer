@@ -13,16 +13,16 @@ private val logger = KotlinLogging.logger {}
 class SeedDb : ApplicationListener<ApplicationReadyEvent> {
 
     @Autowired
-    lateinit var employeeRepository: PersonRepository
+    lateinit var employeeRepository: EmployeeRepository
 
     override fun onApplicationEvent(event: ApplicationReadyEvent) {
         logger.info { "onApplicationEvent" }
 
         employeeRepository.deleteAll()
             .thenMany(Flux.just(
-                Person(null, "john", 100.0, "Stavanger"),
-                Person(null, "peter", 112.0, "Oslo"),
-                Person(null, "jack", 85.0, "Drammen")
+                Employee(null, "john", 100.0, "Stavanger"),
+                Employee(null, "peter", 112.0, "Oslo"),
+                Employee(null, "jack", 85.0, "Drammen")
             )
                 .flatMap { e -> employeeRepository.save(e) })
             .thenMany(employeeRepository.findAll())

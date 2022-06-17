@@ -1,4 +1,4 @@
-create table person(
+create table employees(
                          id int auto_increment primary key,
                          name varchar,
                          salary number,

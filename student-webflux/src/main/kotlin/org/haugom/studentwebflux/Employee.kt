@@ -3,8 +3,8 @@ package org.haugom.studentwebflux
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
-@Table("person")
-data class Person(
+@Table("employees")
+data class Employee(
     @Id
     val id: Long?,
     val name: String,
